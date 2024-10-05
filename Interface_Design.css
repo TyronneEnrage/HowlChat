@@ -1,3 +1,19 @@
+.message{
+    margin-bottom: 10px;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.AuthContainer{
+    background-color: aliceblue;
+    padding: 2px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
 #chat-box{
     border: 1px;
     border-style: solid;
@@ -9,14 +25,34 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.message{
-    margin-bottom: 10px;
-}
-
-.username {
-    font-weight: bold;
-}
-
 #user-info{
     margin-bottom: 20px;
 }
+
+#IndexPage{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: aliceblue;
+}
+
+#GoogleLogin{
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 14%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    cursor: pointer;
+}
+
+#GoogleLogin:hover{
+    background-color: #357AE8;
+}
+
+
+
+
