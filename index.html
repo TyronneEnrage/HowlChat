@@ -44,5 +44,13 @@
                     console.error('Error during sign-in:', error);
                 });
         });
+
+        onAuthStateChanged(auth, (user) => {
+            if(user){
+                console.log('The user is signed in to another device.');
+                window.location.href = 'chat_page.html';
+            }
+        });
+
     </script>
 </html>                         
