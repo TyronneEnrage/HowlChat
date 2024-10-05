@@ -8,9 +8,12 @@
 
 .AuthContainer{
     background-color: aliceblue;
-    padding: 2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
@@ -45,7 +48,9 @@
     border: none;
     border-radius: 14%;
     padding-top: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
     cursor: pointer;
 }
 
