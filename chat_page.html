@@ -2,6 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="Interface_Design.css">
         <title>Chat Room</title>
     </head>
 
@@ -32,7 +33,7 @@
         }
 
         const webApp = initializeApp(firebaseConfig);
-        const authentication = getAuth(webApp);
+        const authentication = getAuth(webApp)
         const database = getFirestore(webApp);
 
         function initializeWebChat(user){
@@ -50,7 +51,7 @@
             })
         }
 
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(authentication, (user) => {
             if(user){
                 initializeWebChat(user);
             } else {
@@ -96,6 +97,6 @@
                 });
                 ChatBox.scrollTop = ChatBox.scrollHeight;
             });
-        }                       
+        }                               
     </script>
 </html>         

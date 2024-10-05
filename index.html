@@ -6,7 +6,7 @@
     </head>
 
     <body>
-        <div class = "AuthContainer">
+        <div class = "Auth      Container">
             <h1>Welcome to Howl</h1>
             <p>Please sign in to continue</p>
             <button id="GoogleLogin">Login with Google</button>
@@ -26,8 +26,8 @@
             appId: "1:611414212957:web:f69082e890015bcfe0a8b4"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        const webApp = initializeApp(firebaseConfig);
+        const authentication = getAuth(webApp);
 
         document.getElementById('GoogleLogin').addEventListener('click', () => {
             const provider = new GoogleAuthProvider();
@@ -35,17 +35,17 @@
                 prompt: 'select_account'
             });
 
-            signInWithPopup(auth, provider)
+            signInWithPopup(authentication, provider)
                 .then((result) => {
                     console.log('User signed in:', result.user);
-                    window.location.href = 'chat.html';
+                    window.location.href = 'chat_page.html';
                 })
                 .catch((error) => {
                     console.error('Error during sign-in:', error);
                 });
         });
 
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(authentication, (user) => {
             if(user){
                 console.log('The user is signed in to another device.');
                 window.location.href = 'chat_page.html';
