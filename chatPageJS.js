@@ -66,15 +66,23 @@ function loadChatMessages() {
     onSnapshot(q, (snapshot) => {
         const chatBox = document.getElementById('chat-box');
         chatBox.innerHTML = '';
-
         snapshot.forEach((doc) => {
             const data = doc.data();
             const messageElement = document.createElement('div');
             messageElement.classList.add('message');
-            messageElement.innerHTML = `<span class="user-name">${data.name}</span>: ${data.text}`;
+            
+            // Determine if the message is from the current user
+            const isCurrentUser = data.name === auth.currentUser.displayName;
+            messageElement.classList.add(isCurrentUser ? 'sender' : 'receiver');
+            
+            messageElement.innerHTML = `
+                <div class="message-content">
+                    <div class="user-name">${data.name}</div>
+                    <div class="message-text">${data.text}</div>
+                </div>
+            `;
             chatBox.appendChild(messageElement);
         });
-
         chatBox.scrollTop = chatBox.scrollHeight;
     });
 }

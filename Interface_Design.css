@@ -17,10 +17,37 @@
     text-align: center;
 }
 
+.message {
+    margin-bottom: 10px;
+    clear: both;
+}
+.message-content {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+.sender {
+    float: right;
+}
+.sender .message-content {
+    background-color: #DCF8C6;
+}
+.receiver {
+    float: left;
+}
+.receiver .message-content {
+    background-color: #E5E5EA;
+}
+.user-name {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
 #chat-box{
     border: 1px;
     border-style: solid;
-    border-color: black ;
+    border-color: black ;                       
     padding: 10px;
     height: 300px;
     overflow-y: scroll;
