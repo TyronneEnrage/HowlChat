@@ -1,97 +1,130 @@
-.message{
-    margin-bottom: 10px;
+/* General styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
 }
 
-.username {
-    font-weight: bold;
-}
-
-.AuthContainer{
+/* Index page styles */
+#IndexPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     background-color: aliceblue;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 100px;
-    padding-right: 100px;
+}
+
+.AuthContainer {
+    background-color: white;
+    padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+}
+
+#GoogleLogin {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#GoogleLogin:hover {
+    background-color: #357AE8;
+}
+
+/* Chat page styles */
+#chatID {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#user-info {
+    margin-bottom: 20px;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f0f2f5;
+    border-radius: 4px;
+}
+
+#chat-box {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 4px;
 }
 
 .message {
     margin-bottom: 10px;
     clear: both;
+    overflow: hidden;
 }
+
 .message-content {
     display: inline-block;
-    padding: 5px 10px;
-    border-radius: 10px;
+    padding: 8px 12px;
+    border-radius: 18px;
     max-width: 70%;
+    word-wrap: break-word;
 }
+
 .sender {
-    float: right;
+    text-align: right;
 }
+
 .sender .message-content {
     background-color: #DCF8C6;
+    float: right;
 }
-.receiver {
-    float: left;
-}
+
 .receiver .message-content {
     background-color: #E5E5EA;
+    float: left;
 }
+
 .user-name {
     font-weight: bold;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    font-size: 0.9em;
 }
 
-#chat-box{
-    border: 1px;
-    border-style: solid;
-    border-color: black ;                       
-    padding: 10px;
-    height: 300px;
-    overflow-y: scroll;
-    margin-bottom: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-#user-info{
+#chat-form {
+    display: flex;
     margin-bottom: 20px;
 }
 
-#IndexPage{
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: aliceblue;
+#message-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
-#GoogleLogin{
-    background-color: #4285F4;
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 14%;
-    padding-top: 10px;
-    padding-bottom: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
+    border-radius: 4px;
     cursor: pointer;
+    margin-left: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-#GoogleLogin:hover{
-    background-color: #357AE8;
+button:hover {
+    background-color: #45a049;
 }
-
-#chatID{
-    font-family: Arial, Helvetica, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-
-
-
