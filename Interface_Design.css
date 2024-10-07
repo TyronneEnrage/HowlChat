@@ -39,6 +39,7 @@ body {
 }
 
 /* Chat page styles */
+/*
 #chatID {
     max-width: 800px;
     margin: 0 auto;
@@ -46,6 +47,25 @@ body {
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+}
+*/
+
+#chatID{
+    display: flex;
+    height: 100vh;
+}
+
+#chat-area{
+    background-color: #45a049;     
+    border: 1px solid;
+    flex: 3;
+    padding-left: 20px;   
+}
+
+#chat-container{
+    background-color: #357AE8;
+    border: 1px solid;
+    flex: 1;
 }
 
 #user-info {
@@ -65,6 +85,8 @@ body {
     background-color: #fff;
     border-radius: 4px;
 }
+
+
 
 .message {
     margin-bottom: 10px;
