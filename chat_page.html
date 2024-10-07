@@ -1,22 +1,36 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="Interface_Design.css">
-        <title>Chat Room</title>
-    </head>
-
-    <body id = "chatID">
-        <div id="user-info"></div>
-        <button id="logout">Logout</button>
-        
-        <h2>Chat Room</h2>
-        <div id="chat-box"></div>
-        <form id="chat-form">
-            <input type="text" id="message-input" placeholder="Type a message" required>
-            <button type="submit">Send</button>
-        </form>
-    
-        <script type="module" src="chatPageJS.js"></script>
-    </body>
-</html>         
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Interface_Design.css">
+    <title>Chat Room</title>
+</head>
+<body id="chatID">
+    <div id="user-info"></div>
+    <button id="logout">Logout</button>
+    <h2>Chat Room</h2>
+    <div id="chat-container">
+        <div id="channel-list">
+            <h3>Channels</h3>
+            <ul id="channels">
+                <li class="channel active" data-channel="general">General</li>
+                <li class="channel" data-channel="random">Random</li>
+                <li class="channel" data-channel="tech">Tech</li>
+            </ul>
+            <button id="add-channel">+ Add Channel</button>
+        </div>
+        <div id="chat-area">
+            <div id="current-channel">
+                <h3>#general</h3>
+            </div>
+            <div id="chat-box"></div>
+            <form id="chat-form">
+                <input type="text" id="message-input" placeholder="Type a message" required>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="chatPageJS.js"></script>
+</body>
+</html>
