@@ -60,6 +60,7 @@ body {
     border: 1px solid;
     flex: 3;
     padding-left: 20px;   
+    padding-right: 20px;
 }
 
 #chat-container{
@@ -77,13 +78,33 @@ body {
 }
 
 #chat-box {
-    height: 400px;
+    height: 80%;
     overflow-y: auto;
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 20px;
     background-color: #fff;
     border-radius: 4px;
+}
+
+#channels{
+    list-style-type: none;
+    max-width: 75%;
+}
+
+#channels li{
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid;
+    border-radius: 10px;
+}
+
+#channels li:hover{
+    background-color: #ccc;
+}
+
+#logout{
+    align-items: center;
 }
 
 
