@@ -19,7 +19,7 @@ let currentChannel = 'general';
 
 function initializeChat(user) {
     console.log('Initializing chat for user:', user.displayName);
-    document.getElementById('user-info').textContent = `Logged in as: ${user.displayName} (${user.email})`;
+    document.getElementById('user-info').textContent = `Logged in as: ${user.displayName}`;
     
     loadChannels();
     switchChannel('general');
