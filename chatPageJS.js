@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
-import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, where } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, where, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBN2gdB0giH-cggQ9o50UNiOeXZkqJH9rc",
@@ -62,7 +62,22 @@ function loadChannels() {
             const channelElement = document.createElement('li');
             channelElement.classList.add('channel');
             channelElement.dataset.channel = channelData.name;
-            channelElement.textContent = channelData.name;
+
+            // Add channel name
+            const channelNameSpan = document.createElement('span');
+            channelNameSpan.textContent = channelData.name;
+            channelElement.appendChild(channelNameSpan);
+
+            // Add delete button for each channel except "default"
+            if (channelData.name !== 'default') {
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Remove';
+                deleteButton.classList.add('delete-channel');
+                deleteButton.dataset.channelId = doc.id;
+                deleteButton.dataset.channelName = channelData.name;
+                channelElement.appendChild(deleteButton);
+            }
+
             channelList.appendChild(channelElement);
 
             // Check if "default" channel exists
@@ -80,6 +95,35 @@ function loadChannels() {
             });
         }
     });
+    // Add event delegation for deleting a channel
+    document.getElementById('channels').addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete-channel')) {
+            const channelId = e.target.dataset.channelId;
+            const channelName = e.target.dataset.channelName;
+            removeChannel(channelId, channelName);
+        }
+    });
+}
+
+async function removeChannel(channelId, channelName) {
+    // Prevent deleting the current active channel
+    if (channelName === currentChannel) {
+        alert('You cannot delete the current active channel. Please switch to another channel before deleting.');
+        return;
+    }
+
+    // Confirm with the user before deleting the channel
+    if (!confirm(`Are you sure you want to delete the channel: #${channelName}?`)) {
+        return;
+    }
+
+    try {
+        // Delete the channel document from Firestore
+        await deleteDoc(doc(db, 'channels', channelId));
+        console.log(`Channel ${channelName} deleted successfully`);
+    } catch (error) {
+        console.error('Error deleting channel:', error);
+    }
 }
 
 function switchChannel(channelName) {
@@ -166,3 +210,4 @@ document.getElementById('logout').addEventListener('click', () => {
         console.error('Error signing out:', error);
     });
 });
+
