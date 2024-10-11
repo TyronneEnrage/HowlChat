@@ -184,12 +184,9 @@ button:hover {
     background-color: #45a049;
 }
 
-
-/* Custom styling for the delete button */
-#channel .custom-delete-button {
-    background-color: red;
-    border: none;                    /* Remove borders */
-    color: white;                  /* Red color for delete */
-    cursor: pointer;                 /* Pointer cursor on hover */
-    font-size: 14px;                 /* Font size for button */
+.custom-delete-button {
+    background-color: transparent;
+    border: 1px solid black;                  
+    color: white;                  
+    cursor: pointer;                              
 }
