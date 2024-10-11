@@ -15,14 +15,14 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-let currentChannel = 'general';
+let currentChannel = 'default';
 
 function initializeChat(user) {
     console.log('Initializing chat for user:', user.displayName);
     document.getElementById('user-info').textContent = `Logged in as: ${user.displayName}`;
     
     loadChannels();
-    switchChannel('general'); // You might want to change this to the last active channel
+    switchChannel('default'); // You might want to change this to the last active channel
     
     document.getElementById('chat-form').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -55,7 +55,8 @@ function loadChannels() {
     onSnapshot(channelsRef, (snapshot) => {
         const channelList = document.getElementById('channels');
         channelList.innerHTML = ''; // Clear existing channels
-        
+        let defaultChannelExists = false;
+
         snapshot.forEach((doc) => {
             const channelData = doc.data();
             const channelElement = document.createElement('li');
@@ -63,7 +64,21 @@ function loadChannels() {
             channelElement.dataset.channel = channelData.name;
             channelElement.textContent = channelData.name;
             channelList.appendChild(channelElement);
+
+            // Check if "default" channel exists
+            if (channelData.name === 'default') {
+                defaultChannelExists = true;
+            }
         });
+
+        // If the "default" channel does not exist, add it
+        if (!defaultChannelExists) {
+            addChannel('default').then(() => {
+                console.log('Default channel added successfully');
+            }).catch((error) => {
+                console.error('Error adding default channel:', error);
+            });
+        }
     });
 }
 
@@ -136,6 +151,7 @@ function loadChatMessages(channel) {
 onAuthStateChanged(auth, (user) => {
     if (user) {
         initializeChat(user);
+        switchChannel('default'); // Switch to default channel after user logs in
     } else {
         console.log('User is not signed in, redirecting to login page');
         window.location.href = 'index.html';
