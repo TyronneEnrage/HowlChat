@@ -22,7 +22,7 @@ function initializeChat(user) {
     document.getElementById('user-info').textContent = `Logged in as: ${user.displayName} (${user.email})`;
     
     loadChannels();
-    switchChannel('general');
+    switchChannel('general'); // You might want to change this to the last active channel
     
     document.getElementById('chat-form').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -40,33 +40,56 @@ function initializeChat(user) {
             addChannel(channelName);
         }
     });
-}
 
-function loadChannels() {
-    const channelList = document.getElementById('channels');
-    channelList.addEventListener('click', (e) => {
+    // Add event delegation for channel switching
+    document.getElementById('channels').addEventListener('click', (e) => {
         if (e.target.classList.contains('channel')) {
             switchChannel(e.target.dataset.channel);
         }
     });
 }
 
+function loadChannels() {
+    const channelsRef = collection(db, 'channels');
+    
+    onSnapshot(channelsRef, (snapshot) => {
+        const channelList = document.getElementById('channels');
+        channelList.innerHTML = ''; // Clear existing channels
+        
+        snapshot.forEach((doc) => {
+            const channelData = doc.data();
+            const channelElement = document.createElement('li');
+            channelElement.classList.add('channel');
+            channelElement.dataset.channel = channelData.name;
+            channelElement.textContent = channelData.name;
+            channelList.appendChild(channelElement);
+        });
+    });
+}
+
 function switchChannel(channelName) {
     currentChannel = channelName;
     document.querySelectorAll('.channel').forEach(ch => ch.classList.remove('active'));
-    document.querySelector(`.channel[data-channel="${channelName}"]`).classList.add('active');
+    const activeChannel = document.querySelector(`.channel[data-channel="${channelName}"]`);
+    if (activeChannel) {
+        activeChannel.classList.add('active');
+    }
     document.getElementById('current-channel').innerHTML = `<h3>#${channelName}</h3>`;
     loadChatMessages(channelName);
 }
 
-function addChannel(channelName) {
-    const channelList = document.getElementById('channels');
-    const newChannel = document.createElement('li');
-    newChannel.classList.add('channel');
-    newChannel.dataset.channel = channelName;
-    newChannel.textContent = channelName;
-    channelList.appendChild(newChannel);
+async function addChannel(channelName) {
+    try {
+        await addDoc(collection(db, 'channels'), {
+            name: channelName,
+            createdAt: new Date()
+        });
+        console.log(`Channel ${channelName} added successfully`);
+    } catch (error) {
+        console.error("Error adding channel: ", error);
+    }
 }
+
 
 async function addMessage(username, message, channel) {
     try {
