@@ -71,10 +71,12 @@ function loadChannels() {
             // Add delete button for each channel except "default"
             if (channelData.name !== 'default') {
                 const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Remove';
-                deleteButton.classList.add('delete-channel');
+                deleteButton.textContent = '🗑️'; // You can also use an icon if preferred
+                deleteButton.classList.add('delete-channel', 'custom-delete-button');
                 deleteButton.dataset.channelId = doc.id;
                 deleteButton.dataset.channelName = channelData.name;
+            
+                // Append the delete button to the channel element
                 channelElement.appendChild(deleteButton);
             }
 

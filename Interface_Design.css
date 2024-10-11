@@ -39,16 +39,6 @@ body {
 }
 
 /* Chat page styles */
-/*
-#chatID {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-*/
 
 #chatID{
     display: flex;
@@ -108,6 +98,9 @@ body {
     margin-top: 10px;
     border: 1px solid;
     border-radius: 10px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
 }
 
 #channels li:hover{
@@ -189,4 +182,14 @@ button {
 
 button:hover {
     background-color: #45a049;
+}
+
+
+/* Custom styling for the delete button */
+#channel .custom-delete-button {
+    background-color: red;
+    border: none;                    /* Remove borders */
+    color: white;                  /* Red color for delete */
+    cursor: pointer;                 /* Pointer cursor on hover */
+    font-size: 14px;                 /* Font size for button */
 }
