@@ -21,8 +21,8 @@ function initializeChat(user) {
     console.log('Initializing chat for user:', user.displayName);
     document.getElementById('user-info').textContent = `Logged in as: ${user.displayName}`;
     
-    loadChannels();
-    switchChannel('default'); // You might want to change this to the last active channel
+    loadChannels(user);
+    switchChannel('default'); // Switch to default channel by default
     
     document.getElementById('chat-form').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -37,7 +37,7 @@ function initializeChat(user) {
     document.getElementById('add-channel').addEventListener('click', () => {
         const channelName = prompt('Enter new channel name:');
         if (channelName) {
-            addChannel(channelName);
+            addChannel(channelName, user.uid);
         }
     });
 
@@ -49,7 +49,7 @@ function initializeChat(user) {
     });
 }
 
-function loadChannels() {
+function loadChannels(user) {
     const channelsRef = collection(db, 'channels');
     
     onSnapshot(channelsRef, (snapshot) => {
@@ -68,8 +68,8 @@ function loadChannels() {
             channelNameSpan.textContent = channelData.name;
             channelElement.appendChild(channelNameSpan);
 
-            // Add delete button for each channel except "default"
-            if (channelData.name !== 'default') {
+            // Add delete button only if the current user created the channel and it's not "default"
+            if (channelData.name !== 'default' && channelData.createdBy === user.uid) {
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = '🗑️'; // You can also use an icon if preferred
                 deleteButton.classList.add('delete-channel', 'custom-delete-button');
@@ -90,13 +90,14 @@ function loadChannels() {
 
         // If the "default" channel does not exist, add it
         if (!defaultChannelExists) {
-            addChannel('default').then(() => {
+            addChannel('default', user.uid).then(() => {
                 console.log('Default channel added successfully');
             }).catch((error) => {
                 console.error('Error adding default channel:', error);
             });
         }
     });
+
     // Add event delegation for deleting a channel
     document.getElementById('channels').addEventListener('click', (e) => {
         if (e.target.classList.contains('delete-channel')) {
@@ -105,6 +106,19 @@ function loadChannels() {
             removeChannel(channelId, channelName);
         }
     });
+}
+
+async function addChannel(channelName, userId) {
+    try {
+        await addDoc(collection(db, 'channels'), {
+            name: channelName,
+            createdBy: userId, // Store the user's UID
+            createdAt: new Date()
+        });
+        console.log(`Channel ${channelName} added successfully`);
+    } catch (error) {
+        console.error("Error adding channel: ", error);
+    }
 }
 
 async function removeChannel(channelId, channelName) {
@@ -138,19 +152,6 @@ function switchChannel(channelName) {
     document.getElementById('current-channel').innerHTML = `<h3>#${channelName}</h3>`;
     loadChatMessages(channelName);
 }
-
-async function addChannel(channelName) {
-    try {
-        await addDoc(collection(db, 'channels'), {
-            name: channelName,
-            createdAt: new Date()
-        });
-        console.log(`Channel ${channelName} added successfully`);
-    } catch (error) {
-        console.error("Error adding channel: ", error);
-    }
-}
-
 
 async function addMessage(username, message, channel) {
     try {
@@ -212,4 +213,3 @@ document.getElementById('logout').addEventListener('click', () => {
         console.error('Error signing out:', error);
     });
 });
-
