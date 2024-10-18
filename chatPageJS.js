@@ -1,15 +1,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
 import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, where, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+let encryptedstring = "U2FsdGVkX19tNlD5zzCWR3QtE1IlstSz4eU6rB8ifHok84UlfvG6XNOkLcXnPGGJQHcANKIUJbZ5Uv9WI9EoKm1qsEBmu+T7u902v9U/fLm91PyoK7+JDLV6Vsy9nVacaUiFjDb1Ky+pqBJhCmv6j66FVV5pJP9MPP/QeQsJLdX6468+k5lH2mLpvShFl++P8QjcMKa/VwfRev58uaE/Et0zEs57VGHaLPtP4O4MWpxXt55C1DOq6u99ZU+yPX/g51O9R+rfpTK5aWFW4lAQ0l6x/rev5bPfKpB654DYDdmE3wpuMH26mitWHSprkCZx0dWN8V7mYxOVEe6/NbU8KrjxQuL3N7ZiyeOSKbvXaMU=";
+const encryptionKey = "Redline";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBN2gdB0giH-cggQ9o50UNiOeXZkqJH9rc",
-    authDomain: "howl-chat.firebaseapp.com",
-    projectId: "howl-chat",
-    storageBucket: "howl-chat.appspot.com",
-    messagingSenderId: "611414212957",
-    appId: "1:611414212957:web:f69082e890015bcfe0a8b4"
-};
+
+const decryptedBytes = CryptoJS.AES.decrypt(encryptedstring, encryptionKey);
+const decryptedConfigString = decryptedBytes.toString(CryptoJS.enc.Utf8);
+
+const firebaseConfig = JSON.parse(decryptedConfigString);
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
