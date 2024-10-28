@@ -7,3 +7,13 @@
     font-family: 'HindiSiliguri Medium';
     src: url(/Fonts/Hind_Siliguri/HindSiliguri-Medium.ttf) format('truetype');
 }
+
+@font-face {
+    font-family: "HindiSiliguri Bold";
+    src: url(/Fonts/Hind_Siliguri/HindSiliguri-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: url(/Fonts/Outfit/Outfit-VariableFont_wght.ttf) format('truetype');
+}

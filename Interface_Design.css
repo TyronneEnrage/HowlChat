@@ -49,18 +49,38 @@
     height: 100vh;
 }
 
+
 #chat-area{ 
-    border: 1px solid;
+
     flex: 3;
     padding-left: 20px;   
     padding-right: 20px;
 }
 
 #chat-container{
-    border: 1px solid;
+    border-right: 1px solid;
     flex: 1;
 }
 
+#chat-container{
+    font-family: 'HindiSiliguri Medium', 'Times New Roman', Times, serif;
+}
+
+#chat-container button{
+    font-family: 'HindiSiliguri Bold', 'Times New Roman', Times, serif;
+}
+
+#current-channel{
+    font-family: 'HindiSiliguri Bold', 'Times New Roman', Times, serif;
+}
+
+#chat-area{
+    font-family: 'Outfit', Arial, Helvetica, sans-serif;
+}
+
+#chat-area button{
+    font-family: 'HindiSiliguri Bold', 'Times New Roman', Times, serif;
+}
 
 #user-info {
     margin: 20px 20px 20px 30px;
@@ -95,6 +115,10 @@
 #channels{
     list-style-type: none;
     max-width: 75%;
+}
+
+#channels button:hover{
+    background-color: #d32828;
 }
 
 #channels li{
@@ -185,7 +209,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #58ce5c;
 }
 
 .custom-delete-button {
