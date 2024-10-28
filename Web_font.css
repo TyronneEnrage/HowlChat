@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Chinzel Bold';
+    src: url(/Fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'HindiSiliguri Medium';
+    src: url(/Fonts/Hind_Siliguri/HindSiliguri-Medium.ttf) format('truetype');
+}

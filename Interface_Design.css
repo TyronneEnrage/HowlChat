@@ -5,6 +5,7 @@
     align-items: center;
     height: 100vh;
     background-color: aliceblue;
+
 }
 
 .AuthContainer {
@@ -13,7 +14,18 @@
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    font-family: 'HindiSiliguri Medium', Arial, Helvetica, sans-serif ;
 }
+
+.AuthContainer h1{
+    font-family: 'Chinzel Bold', 'Times New Roman', Times, serif;
+}
+
+.AuthContainer button{
+    font-family: 'HindiSiliguri Medium', Arial, Helvetica, sans-serif ;
+}
+
+
 
 #GoogleLogin {
     background-color: #4285F4;
