@@ -1,15 +1,17 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
 import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, where, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+
+//INITIALIZING FIREBASE USER
+//Decryption of the Firebase credential 
 let encryptedstring = "U2FsdGVkX19tNlD5zzCWR3QtE1IlstSz4eU6rB8ifHok84UlfvG6XNOkLcXnPGGJQHcANKIUJbZ5Uv9WI9EoKm1qsEBmu+T7u902v9U/fLm91PyoK7+JDLV6Vsy9nVacaUiFjDb1Ky+pqBJhCmv6j66FVV5pJP9MPP/QeQsJLdX6468+k5lH2mLpvShFl++P8QjcMKa/VwfRev58uaE/Et0zEs57VGHaLPtP4O4MWpxXt55C1DOq6u99ZU+yPX/g51O9R+rfpTK5aWFW4lAQ0l6x/rev5bPfKpB654DYDdmE3wpuMH26mitWHSprkCZx0dWN8V7mYxOVEe6/NbU8KrjxQuL3N7ZiyeOSKbvXaMU=";
 const encryptionKey = "Redline";
 
-
 const decryptedBytes = CryptoJS.AES.decrypt(encryptedstring, encryptionKey);
 const decryptedConfigString = decryptedBytes.toString(CryptoJS.enc.Utf8);
-
 const firebaseConfig = JSON.parse(decryptedConfigString);
 
+//Initialization of firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -48,6 +50,31 @@ function initializeChat(user) {
     });
 }
 
+//User authentication 
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        initializeChat(user);
+        switchChannel('default'); // Switch to default channel after user logs in
+    } else {
+        console.log('User is not signed in, redirecting to login page');
+        window.location.href = 'index.html';
+    }
+});
+
+document.getElementById('logout').addEventListener('click', () => {
+    signOut(auth).then(() => {
+        console.log('User signed out');
+        window.location.href = 'index.html';
+    }).catch((error) => {
+        console.error('Error signing out:', error);
+    });
+});
+
+
+
+
+//CHANNEL RELATED FUNCTIONS
+//loading all channels from firestore
 function loadChannels(user) {
     const channelsRef = collection(db, 'channels');
     
@@ -107,6 +134,8 @@ function loadChannels(user) {
     });
 }
 
+
+//adding new channel to be stored in firestore
 async function addChannel(channelName, userId) {
     try {
         await addDoc(collection(db, 'channels'), {
@@ -120,6 +149,7 @@ async function addChannel(channelName, userId) {
     }
 }
 
+//removing existing channels from firestore
 async function removeChannel(channelId, channelName) {
     // Prevent deleting the current active channel
     if (channelName === currentChannel) {
@@ -141,6 +171,7 @@ async function removeChannel(channelId, channelName) {
     }
 }
 
+//switching between channels 
 function switchChannel(channelName) {
     currentChannel = channelName;
     document.querySelectorAll('.channel').forEach(ch => ch.classList.remove('active'));
@@ -152,6 +183,12 @@ function switchChannel(channelName) {
     loadChatMessages(channelName);
 }
 
+
+
+
+
+
+//sends a message with the senders message and which channels is it sent
 async function addMessage(username, message, channel) {
     try {
         await addDoc(collection(db, 'messages'), {
@@ -165,6 +202,7 @@ async function addMessage(username, message, channel) {
     }
 }
 
+//loading all chats from that particular channels
 function loadChatMessages(channel) {
     const q = query(
         collection(db, 'messages'),
@@ -194,21 +232,4 @@ function loadChatMessages(channel) {
     });
 }
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        initializeChat(user);
-        switchChannel('default'); // Switch to default channel after user logs in
-    } else {
-        console.log('User is not signed in, redirecting to login page');
-        window.location.href = 'index.html';
-    }
-});
 
-document.getElementById('logout').addEventListener('click', () => {
-    signOut(auth).then(() => {
-        console.log('User signed out');
-        window.location.href = 'index.html';
-    }).catch((error) => {
-        console.error('Error signing out:', error);
-    });
-});
