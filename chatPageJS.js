@@ -187,7 +187,7 @@ function switchChannel(channelName) {
 
 
 
-
+//MESSAGE HANDLING
 //sends a message with the senders message and which channels is it sent
 async function addMessage(username, message, channel) {
     try {
